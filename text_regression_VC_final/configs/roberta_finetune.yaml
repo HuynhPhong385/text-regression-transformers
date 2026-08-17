@@ -1,0 +1,11 @@
+experiment_name: roberta_finetune_imdb_seed42
+model_name: roberta-base
+strategy: finetune
+dataset: imdb
+seed: 42
+epochs: 3
+learning_rate: 2.0e-5
+batch_size: 16
+max_length: 256
+weight_decay: 0.01
+warmup_ratio: 0.1

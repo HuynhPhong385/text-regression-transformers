@@ -1,0 +1,4 @@
+experiment_name: baseline_imdb_seed42
+dataset: imdb
+seed: 42
+baseline: tfidf_linear_regression
