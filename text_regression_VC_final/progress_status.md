@@ -67,6 +67,7 @@ Current phase: `Phase 0 — Business Understanding`
 - [ ] Comparison table
 
 ## Phase 7 — Model-level test
+> Owner: Member 4 (Evaluation + Experiments + Error Analysis)
 
 - [ ] MAE
 - [ ] MSE
@@ -86,6 +87,7 @@ Current phase: `Phase 0 — Business Understanding`
 - [ ] End-to-end test
 
 ## Phase 9 — Analysis
+> Owner: Member 4 (Evaluation + Experiments + Error Analysis)
 
 - [ ] Error analysis
 - [ ] Plots
@@ -103,7 +105,9 @@ Current phase: `Phase 0 — Business Understanding`
 ## Current task
 
 ```text
-Not started
+Member 4 — branch feature/evaluation
+Giai đoạn A: EVALUATION_PLAN.md đã tạo (A1, A2 done)
+Đang làm: A3 — lập checklist audit riêng từ codebase_audit.md
 ```
 
 ## Update rule
