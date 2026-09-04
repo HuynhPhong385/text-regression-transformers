@@ -69,10 +69,10 @@ loss curve, actual vs predicted, residual distribution, error buckets, model com
 | 5.2 Full pipeline | Phối hợp Member 5 test API flow | latency/throughput log, full-pipeline test report |
 
 ### Giai đoạn A — Chuẩn bị (làm ngay, không phụ thuộc ai)
-- [X] A1. Đang ở branch `feature/evaluation` (bước 1 đã xong).
-- [X] A2. Tạo file này (`docs/EVALUATION_PLAN.md`) — bước hiện tại.
-- [ ] A3. Lập checklist audit riêng từ `codebase_audit.md` (mục ML + Testing): split đúng, không leakage, seed được ghi, checkpoint có metadata, test set chỉ dùng cuối.
-- [ ] A4. Viết spec test cho `src/evaluation/` theo `docs/TEST_STRATEGY.md` (test metric functions trên dữ liệu giả định nhỏ).
+- [X] A1. Đang ở branch `feature/evaluation` (đã verify `git branch --show-current`).
+- [X] A2. Tạo file này (`docs/EVALUATION_PLAN.md`).
+- [X] A3. Lập checklist audit riêng từ `codebase_audit.md` (mục ML + Testing): xem `docs/EVALUATION_CHECKLIST.md` (D1–D8 data, T1–T8 training, E1–E5 evaluation, P1–P4 pipeline, W1–W4 quy trình).
+- [X] A4. Viết spec test cho `src/evaluation/` theo `docs/TEST_STRATEGY.md`: xem `tests/test_metrics.py` (8 test, auto-SKIP tới khi `src/evaluation/metrics.py` tồn tại).
 
 ### Giai đoạn B — Audit code Member 2 & 3 (song song Phase 2–6)
 - [ ] B1. Audit `src/data/` của Member 2: schema `id/text/rating/target/split`, target=(rating-1)/4, không trùng sample giữa splits, `data/processed/metadata.json` có hash.

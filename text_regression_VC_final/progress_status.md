@@ -106,8 +106,8 @@ Current phase: `Phase 0 — Business Understanding`
 
 ```text
 Member 4 — branch feature/evaluation
-Giai đoạn A: EVALUATION_PLAN.md đã tạo (A1, A2 done)
-Đang làm: A3 — lập checklist audit riêng từ codebase_audit.md
+Giai đoạn A: A1–A4 done (EVALUATION_PLAN.md, EVALUATION_CHECKLIST.md, tests/test_metrics.py)
+Chờ: Member 2/3 có code -> Giai đoạn B (audit src/data, src/models, src/training)
 ```
 
 ## Update rule
