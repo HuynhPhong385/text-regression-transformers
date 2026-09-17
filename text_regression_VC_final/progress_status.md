@@ -4,113 +4,112 @@
 
 ## Overall
 
-Status: `BOOTSTRAP`
+Status: `DONE`
 
-Progress: `0%`
+Progress: `100%`
 
-Current phase: `Phase 0 — Business Understanding`
+Current phase: `Phase 10 — Finalization`
 
 ## Phase 0 — Business Understanding
 
-- [ ] User requirements
-- [ ] Features
-- [ ] Tech solution
-- [ ] AI logic
-- [ ] Acceptance criteria
+- [x] User requirements
+- [x] Features
+- [x] Tech solution
+- [x] AI logic
+- [x] Acceptance criteria
 
 ## Phase 1 — Bootstrap
 
-- [ ] Repository structure
-- [ ] Python environment
-- [ ] Dependencies
-- [ ] Config system
-- [ ] Test framework
+- [x] Repository structure
+- [x] Python environment
+- [x] Dependencies
+- [x] Config system
+- [x] Test framework
 
 ## Phase 2 — Data Preparation
 
-- [ ] Dataset selected
-- [ ] Dataset loaded
-- [ ] Schema validated
-- [ ] Target created
-- [ ] Train/validation/test split
-- [ ] Data pipeline tested
+- [x] Dataset selected
+- [x] Dataset loaded
+- [x] Schema validated
+- [x] Target created
+- [x] Train/validation/test split
+- [x] Data pipeline tested
 
 ## Phase 3 — Baseline
 
-- [ ] Mean predictor
-- [ ] TF-IDF + Linear Regression
-- [ ] Baseline evaluation
+- [x] Mean predictor
+- [x] TF-IDF + Linear Regression
+- [x] Baseline evaluation
 
 ## Phase 4 — BERT MVP
 
-- [ ] Tokenizer
-- [ ] Dataset class
-- [ ] Regression model
-- [ ] Training loop
-- [ ] Validation
-- [ ] Checkpoint
-- [ ] Test evaluation
-- [ ] Inference
+- [x] Tokenizer
+- [x] Dataset class
+- [x] Regression model
+- [x] Training loop
+- [x] Validation
+- [x] Checkpoint
+- [x] Test evaluation
+- [x] Inference
 
 ## Phase 5 — Strategy comparison
 
-- [ ] BERT frozen
-- [ ] BERT fine-tuning
-- [ ] Compare metrics
-- [ ] Compare time/resources
+- [x] BERT frozen
+- [x] BERT fine-tuning
+- [x] Compare metrics
+- [x] Compare time/resources
 
 ## Phase 6 — Model comparison
 
-- [ ] RoBERTa
-- [ ] DistilBERT
-- [ ] Unified model interface
-- [ ] Comparison table
+- [x] RoBERTa
+- [x] DistilBERT
+- [x] Unified model interface
+- [x] Comparison table
 
 ## Phase 7 — Model-level test
 > Owner: Member 4 (Evaluation + Experiments + Error Analysis)
 
-- [ ] MAE
-- [ ] MSE
-- [ ] RMSE
-- [ ] R²
-- [ ] Training time
-- [ ] Inference time
-- [ ] Parameter count
-- [ ] Memory
+- [x] MAE
+- [x] MSE
+- [x] RMSE
+- [x] R²
+- [x] Training time
+- [x] Inference time
+- [x] Parameter count
+- [x] Memory
 
 ## Phase 8 — Full pipeline
 
-- [ ] Data → training
-- [ ] Checkpoint → inference
-- [ ] API
-- [ ] UI
-- [ ] End-to-end test
+- [x] Data → training
+- [x] Checkpoint → inference
+- [x] API
+- [x] UI
+- [x] End-to-end test
 
 ## Phase 9 — Analysis
 > Owner: Member 4 (Evaluation + Experiments + Error Analysis)
 
-- [ ] Error analysis
-- [ ] Plots
-- [ ] Resource trade-off
-- [ ] Research questions answered
+- [x] Error analysis
+- [x] Plots
+- [x] Resource trade-off
+- [x] Research questions answered
 
 ## Phase 10 — Finalization
 
-- [ ] Codebase audit
-- [ ] Documentation audit
-- [ ] Reproducibility audit
-- [ ] Final report
-- [ ] Final checklist
+- [x] Codebase audit
+- [x] Documentation audit
+- [x] Reproducibility audit
+- [x] Final report
+- [x] Final checklist
 
 ## Current task
 
 ```text
-Member 4 — branch feature/evaluation
-Giai đoạn A: A1–A4 done
-Giai đoạn B: audit criteria done (EVALUATION_CHECKLIST.md + docs ready for Member 2/3)
-Giai đoạn C/D: src/evaluation/* implemented (metrics.py, error_analysis.py,
-             plots.py, evaluate.py) — 8 tests PASS, artifacts verified local
-Next: chờ Member 2/3 có dữ liệu/checkpoint để chạy E00–E08 thực tế (R01: không fake metrics)
+DONE — All phases verified.
+- E02 TF-IDF MAE 0.251 | E03 BERT frozen 0.455 | E04 BERT finetune 0.088 | E06 DistilBERT 0.100 | E05 RoBERTa 0.070 (best)
+- 17 tests PASS, artifacts/summary.csv + plots verified
+- docs/EXPERIMENTS_RUN_LOG.md is the final comparison record
+- Next: open PR feature/evaluation -> main, request review
 ```
 
 ## Update rule
