@@ -1,68 +1,101 @@
-"""FastAPI inference service."""
-
-from __future__ import annotations
-
-import os
-from pathlib import Path
+import logging
+import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Text Regression API")
+from src.api.schemas import (
+    PredictRequest,
+    PredictResponse,
+    ModelInfoResponse,
+    ModelInfo,
+    HealthResponse,
+)
+from src.inference.predictor import get_registry
+from src.inference.model_loader import load_config
 
-_predictor = None
-_experiment = os.environ.get("EXPERIMENT", "")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("api")
 
-
-def get_predictor():
-    global _predictor
-    if _predictor is not None:
-        return _predictor
-    # Resolve checkpoint dir: env or latest artifact with checkpoint
-    ckpt_dir = None
-    if _experiment:
-        ckpt_dir = Path(f"artifacts/{_experiment}/checkpoints")
-    if ckpt_dir is None or not ckpt_dir.exists():
-        # Fallback: find any artifact with best.pt
-        for p in sorted(Path("artifacts").glob("*/checkpoints/best.pt")):
-            ckpt_dir = p.parent
-            break
-    if ckpt_dir is None or not ckpt_dir.exists():
-        return None
-    from src.inference.predictor import Predictor
-    _predictor = Predictor(ckpt_dir)
-    return _predictor
+config = load_config()
 
 
-class PredictRequest(BaseModel):
-    text: str
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load model mặc định ngay khi service khởi động
+    registry = get_registry()
+    try:
+        registry.model_info(registry.default_model_key)
+    except Exception as exc:
+        logger.warning(f"Không thể preload default model lúc startup: {exc}")
+    yield
 
 
-class PredictResponse(BaseModel):
-    score: float
-    model: str
-    strategy: str
+app = FastAPI(
+    title="Text Regression API",
+    description="API dự đoán score [0,1] từ văn bản, hỗ trợ chọn model (bert/roberta/distilbert).",
+    version="0.1.0",
+    lifespan=lifespan,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=config.get("api", {}).get("cors_origins", ["*"]),
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
-
-
-@app.get("/model-info")
-def model_info():
-    pred = get_predictor()
-    if pred is None:
-        raise HTTPException(status_code=503, detail="No checkpoint loaded")
-    return {"model": pred.model_name, "strategy": pred.strategy, "experiment": pred.experiment}
+@app.get("/health", response_model=HealthResponse)
+def health_check():
+    registry = get_registry()
+    info = registry.model_info(registry.default_model_key)
+    return HealthResponse(
+        status="ok",
+        default_model=registry.default_model_key,
+        default_model_loaded=info["loaded"],
+    )
 
 
 @app.post("/predict", response_model=PredictResponse)
-def predict(req: PredictRequest):
-    if not req.text or not req.text.strip():
-        raise HTTPException(status_code=422, detail="Input text is empty")
-    pred = get_predictor()
-    if pred is None:
-        raise HTTPException(status_code=503, detail="No checkpoint available - run training first")
-    score = pred.predict(req.text)
-    return PredictResponse(score=score, model=pred.model_name, strategy=pred.strategy)
+def predict(request: PredictRequest):
+    registry = get_registry()
+    model_key = request.model_name or registry.default_model_key
+    start = time.time()
+    try:
+        score = registry.predict(request.text, model_key=model_key)
+    except ValueError as exc:
+
+        raise HTTPException(status_code=400, detail=str(exc))
+    except RuntimeError as exc:
+
+        raise HTTPException(status_code=503, detail=str(exc))
+    except Exception as exc:
+        logger.exception("Lỗi khi predict")
+        raise HTTPException(status_code=500, detail=f"Lỗi nội bộ khi predict: {exc}")
+
+    logger.info(f"/predict [{model_key}] xử lý trong {time.time() - start:.3f}s")
+    return PredictResponse(text=request.text, model_name=model_key, score=score)
+
+
+@app.get("/model-info", response_model=ModelInfoResponse)
+def model_info():
+    """Danh sách model khả dụng — UI dùng endpoint này để dựng Model selector."""
+    registry = get_registry()
+    info = registry.model_info()
+    return ModelInfoResponse(
+        default_model=registry.default_model_key,
+        models={k: ModelInfo(**v) for k, v in info.items()},
+    )
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "src.api.app:app",
+        host=config.get("api", {}).get("host", "0.0.0.0"),
+        port=config.get("api", {}).get("port", 8000),
+        reload=True,
+    )
