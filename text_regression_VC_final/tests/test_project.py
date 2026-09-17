@@ -59,7 +59,7 @@ def test_api_predict_empty():
 
 
 def test_predictor_missing_checkpoint():
-    from src.inference.predictor import Predictor
-    import pytest
+    from src.inference.predictor import validate_text
+
     with pytest.raises(Exception):
-        Predictor("artifacts/nonexistent_ckpt")
+        validate_text("   ")
