@@ -1,0 +1,36 @@
+models:
+  distilbert:
+    display_name: "DistilBERT (fine-tune)"
+    name: distilbert-base-uncased     
+    strategy: fine_tune 
+    dropout: 0.1
+    checkpoint_path: artifacts/checkpoints/distilbert_finetune_imdb_seed42/best_model.pt
+
+  bert:
+    display_name: "BERT (fine-tune)"
+    name: bert-base-uncased
+    strategy: fine_tune
+    dropout: 0.1
+    checkpoint_path: artifacts/checkpoints/bert_finetune_imdb_seed42/best_model.pt
+
+  roberta:
+    display_name: "RoBERTa (fine-tune)"
+    name: roberta-base
+    strategy: fine_tune
+    dropout: 0.1
+    checkpoint_path: artifacts/checkpoints/roberta_finetune_imdb_seed42/best_model.pt
+
+default_model: distilbert
+max_length: 256
+
+inference:
+  device: auto                         # auto | cpu | cuda
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  cors_origins:
+    - "*"                              # dev only
+
+ui:
+  api_url: http://localhost:8000
