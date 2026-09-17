@@ -106,8 +106,11 @@ Current phase: `Phase 0 — Business Understanding`
 
 ```text
 Member 4 — branch feature/evaluation
-Giai đoạn A: A1–A4 done (EVALUATION_PLAN.md, EVALUATION_CHECKLIST.md, tests/test_metrics.py)
-Chờ: Member 2/3 có code -> Giai đoạn B (audit src/data, src/models, src/training)
+Giai đoạn A: A1–A4 done
+Giai đoạn B: audit criteria done (EVALUATION_CHECKLIST.md + docs ready for Member 2/3)
+Giai đoạn C/D: src/evaluation/* implemented (metrics.py, error_analysis.py,
+             plots.py, evaluate.py) — 8 tests PASS, artifacts verified local
+Next: chờ Member 2/3 có dữ liệu/checkpoint để chạy E00–E08 thực tế (R01: không fake metrics)
 ```
 
 ## Update rule
