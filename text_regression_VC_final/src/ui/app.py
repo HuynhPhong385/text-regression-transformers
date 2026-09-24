@@ -23,7 +23,7 @@ st.title(" Text Regression with Transformers")
 
 def fetch_model_info() -> dict:
     try:
-        resp = requests.get(f"{API_URL}/model-info", timeout=5)
+        resp = requests.get(f"{API_URL}/model-info", timeout=60)
         resp.raise_for_status()
         return resp.json()
     except Exception as exc:
@@ -32,7 +32,7 @@ def fetch_model_info() -> dict:
 
 def fetch_health() -> dict:
     try:
-        resp = requests.get(f"{API_URL}/health", timeout=5)
+        resp = requests.get(f"{API_URL}/health", timeout=10)
         resp.raise_for_status()
         return resp.json()
     except Exception as exc:

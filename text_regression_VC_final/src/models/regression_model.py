@@ -21,7 +21,7 @@ class TextRegressionModel(nn.Module):
             for p in self.encoder.parameters():
                 p.requires_grad = False
 
-    def forward(self, input_ids: torch.Tensor, attention_mask: torch.Tensor) -> torch.Tensor:
+    def forward(self, input_ids: torch.Tensor, attention_mask: torch.Tensor, token_type_ids: torch.Tensor | None = None, **kwargs) -> torch.Tensor:
         outputs = self.encoder(input_ids=input_ids, attention_mask=attention_mask)
         # First-token representation (CLS / <s>)
         hidden = outputs.last_hidden_state[:, 0, :]

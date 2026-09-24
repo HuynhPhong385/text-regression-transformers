@@ -83,7 +83,7 @@ def load_model_bundle(model_key: str, config: Dict[str, Any], device: str) -> Mo
 
     try:
 
-        from src.models.model_factory import create_model
+        from src.models.factory import create_model
 
         bundle.model = create_model(
             model_name=model_cfg["name"],
@@ -106,7 +106,9 @@ def load_model_bundle(model_key: str, config: Dict[str, Any], device: str) -> Mo
         return bundle
 
     try:
-        state_dict = torch.load(checkpoint_path, map_location=device)
+        ckpt = torch.load(checkpoint_path, map_location=device)
+        # train.py lưu dạng {"model_state": ..., "optimizer_state": ...}
+        state_dict = ckpt.get("model_state", ckpt) if isinstance(ckpt, dict) else ckpt
         bundle.model.load_state_dict(state_dict)
     except Exception as exc:
         bundle.error = f"Không load được checkpoint '{checkpoint_path}': {exc}"

@@ -1,6 +1,6 @@
 # BÁO CÁO TỔNG HỢP — TEXT REGRESSION WITH TRANSFORMERS
 
-> Dự án đồ án ML-NLP — Nhóm 5 thành viên
+> Dự án đồ án ML-NLP — Nhóm 4 thành viên
 > Branch: `feature/evaluation` → PR vào `main`
 > Ngày: 2026-09-17
 > Dataset: IMDb (stanfordnlp/imdb, 49.581 mẫu sau dedup)
